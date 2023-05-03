@@ -1,8 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% block title %}{{ product.name }}{% endblock %}
 {% block content %} 
-
 <div class="breadcrumbs">
     <div class="container">
         <div class="row align-items-center">
@@ -26,17 +25,19 @@
                                 <img src="/media/{{product.cover_img}}" id="current" alt="#">
                             </div>
                             <div class="images">
-                                <img src="/media/{{product.cover_img}}" class="img" alt="#">
-                                <img src="assets/images/product-details/02.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/03.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/04.jpg" class="img" alt="#">
-                                <img src="assets/images/product-details/05.jpg" class="img" alt="#">
+                                <img src="/media/{{product.cover_img}}" class="img" alt="image" name="productImg" onclick="replace_image('{{product.cover_img}}')">
+                                {% if product_images %}
+                                    {% for product_img in product_images %}
+                                        <img src="/media/{{product_img.image}}" class="img" alt="image" name="productImg" onclick="replace_image('{{product_img.image}}')">
+                                    {% endfor %}
+                                {% endif %}
                             </div>
                         </main>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
+                        <p class="category">{{product.category.name}}</p>
                         <h2 class="title">{{product.name}}</h2>
                         <p class="category"><i class="fa-solid fa-truck-fast"></i> Buyurtma asosida yetkazib beriladi</p>
                         <h3 class="price">${{product.price}}</h3>
@@ -69,45 +70,50 @@
                 </div>
             </div>
         </div>
+        {% if product_images %}
         <div class="product-details-info">
             <div class="single-block">
                 <div class="row">
-                    <div class="col-lg-6 col-12">
+                    <div class="col-lg-12 col-12">
                         <div class="info-body custom-responsive-margin">
-                            <h4>Details</h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-                                irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat.</p>
-                            <h4>Features</h4>
-                            <ul class="features">
-                                <li>Capture 4K30 Video and 12MP Photos</li>
-                                <li>Game-Style Controller with Touchscreen</li>
-                                <li>View Live Camera Feed</li>
-                                <li>Full Control of HERO6 Black</li>
-                                <li>Use App for Dedicated Camera Operation</li>
-                            </ul>
+                            {% for product_img in product_images %}
+                                <img src="/media/{{product_img.image}}" class="img mx-auto w-100" alt="image" name="productImg" onclick="replace_image('{{product_img.image}}')">
+                            {% endfor %}        
                         </div>
                     </div>
-                    <div class="col-lg-6 col-12">
-                        <div class="info-body">
-                            <h4>Specifications</h4>
-                            <ul class="normal-list">
-                                <li><span>Weight:</span> 35.5oz (1006g)</li>
-                                <li><span>Maximum Speed:</span> 35 mph (15 m/s)</li>
-                                <li><span>Maximum Distance:</span> Up to 9,840ft (3,000m)</li>
-                                <li><span>Operating Frequency:</span> 2.4GHz</li>
-                                <li><span>Manufacturer:</span> GoPro, USA</li>
-                            </ul>
-                            <h4>Shipping Options:</h4>
-                            <ul class="normal-list">
-                                <li><span>Courier:</span> 2 - 4 days, $22.50</li>
-                                <li><span>Local Shipping:</span> up to one week, $10.00</li>
-                                <li><span>UPS Ground Shipping:</span> 4 - 6 days, $18.00</li>
-                                <li><span>Unishop Global Export:</span> 3 - 4 days, $25.00</li>
-                            </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title mt-5">
+                    <h2>O'xshash mahsulotlar</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="row">
+                    {% if reccom_products%}
+                        {% for reccom_product in reccom_products %}
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="single-product">
+                                <div class="product-image">
+                                    <img src="/media/{{reccom_product.cover_img}}" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
+                                    <div class="button">
+                                        <a href="{% url 'product' reccom_product.pk %}" class="btn">Batafsil <i class="fa-solid fa-arrow-right-long mx-2"></i></a>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <h4 class="title">
+                                        <a href="{% url 'product' reccom_product.pk %}">{{reccom_product.name}}</a>
+                                    </h4>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -170,4 +176,12 @@
     </div>
 </div>
 
+<script>
+    var ProductImage = document.getElementById("current");
+    var SmallImages = document.getElementsByName("productImg");
+
+    function replace_image(source){
+        ProductImage.src = '/media/' + source
+    }
+</script>
 {% endblock %}

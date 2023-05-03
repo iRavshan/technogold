@@ -1,4 +1,5 @@
 from django.db import models
+import uuid
 
 class Category(models.Model):
     name = models.CharField(max_length=200, null=False)
@@ -20,4 +21,6 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE, default=None, null=False)
     image = models.FileField(upload_to='products/', null=False, default=None)
-    
+
+    def __str__(self) -> str:
+        return self.image.name    
