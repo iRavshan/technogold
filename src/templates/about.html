@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Kompaniya haqida</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="{% url 'home' %}"><i class="lni lni-home"></i> Bosh sahifa</a></li>
+                    <li>Kompaniya haqida</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="about-us section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-12 col-12">
+                <div class="content-left">
+                    <img src="assets/images/hero/slider-bg1.png" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
+                    <a href="https://www.youtube.com/watch?v=r44RKWyfcFw&amp;fbclid=IwAR21beSJORalzmzokxDRcGfkZA1AtRTE__l5N4r09HcGS5Y6vOluyouM9EM" class="glightbox video"><i class="lni lni-play"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+                <div class="content-right">
+                    <h2>Texno Gold - biznesingiz uchun uskuna va maxsus texnikalar.</h2>
+                    <p> Biznesingiz uchun zaruriy maxsus texnika va uskunalarni izlash va buyurtma berish biz bilan yanada oson.
+                        «Texno Gold» kompaniyasi o'z shaxsiy biznesini endi boshlayotgan yoki biznesini rivojlantirayotgan ishbilarmon tadbirkorlar uchun Xitoy davlatidan zaruriy uskuna 
+                        va maxus texnikalarni buyurtma asosida yetkazib berish xizmatini taqdim etadi.
+                    </p>
+                    <p>Saytimiz yoki ijtimoiy tarmoqlardagi sahifalarimiz orqali o'zingiz uchun kerakli uskuna yoki maxsus texnikani tanlang va aloqa bo'limi orqali buyurtma bering. 
+                        Ishonch telefonlarimiz ham murojaatlarni qabul qilishga doim tayyor.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %} 
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="breadcrumbs-content">
+                    <h1 class="page-title">Kategoriyalar</h1>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <ul class="breadcrumb-nav">
+                    <li><a href="{% url 'home' %}"><i class="lni lni-home"></i> Bosh sahifa</a></li>
+                    <li>Kategoriyalar</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section blog-section blog-list">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="row">
+                    {% if categories %}
+                        {% for category in categories %}
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="single-blog">
+                                <div class="blog-img">
+                                    <a href="{% url 'products' category.pk %}">
+                                        <img alt="#" src="/media/{{category.cover_img}}" onload="pagespeed.switchToHighResAndMaybeBeacon(this);" onerror="this.onerror=null;pagespeed.switchToHighResAndMaybeBeacon(this);">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <h4>
+                                        <a href="{% url 'products' category.pk %}">{{category.name}}</a>
+                                    </h4>
+                                    <p>{{category.desc}}</p>
+                                    <div class="button">
+                                        <a href="{% url 'products' category.pk %}" class="btn">Tegishli barcha texnikalar <i class="fa-solid fa-arrow-right-long mx-2"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
