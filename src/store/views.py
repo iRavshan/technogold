@@ -23,10 +23,33 @@ def Product(request, pk):
     if product is not None:
         products = list(models.Product.objects.filter(category=product.category))
         product_images = models.ProductImage.objects.filter(product=product)
-        reccom_products = random.sample(products, 1)
-        #while product in reccom_products:
-            #reccom_products.remove(product)
-            #reccom_products.append(random.choice(products))
+        reccom_products = random.sample(products, 3)
+        while product in reccom_products:
+            reccom_products.remove(product)
+            choosed_product = random.choice(products)
+            if choosed_product not in reccom_products:
+                reccom_products.append(choosed_product)
+            else:
+                reccom_products.append(product)
+        s = str(product.price)
+        m=""
+        d=len(s)%3
+        if d!=0:
+           m+=s[0:d]
+           m+='.'
+           for i in range(d,len(s),3):
+            m+=s[d:d+3]
+            d+=3
+            if d!=len(s):
+               m+='.'
+        else:
+            d=0
+            for i in range(d,len(s),3):
+                m+=s[d:d+3]
+                d+=3
+                if d!=len(s):
+                    m+='.'
+        product.price = m
         context = {
             'product': product,
             'reccom_products': reccom_products,
